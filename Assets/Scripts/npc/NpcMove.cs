@@ -14,31 +14,34 @@ public class NpcMove : MonoBehaviour
     public List<int> route = new List<int>();
     private int routePosition = 0;
     private int startCount = 0;
-    // Start is called before the first frame update
+    private int persueCount = 0;
+
+    private GameObject player;
+
+    float visisionDistance = 5.0f;
+    float visionAngle = 30.0f;
+    float shootDistance = 7.0f;
+    float walkSpeed = 1.5f;
+    float runSpeed = 3f;
     void Start()
     {
         waypointManager = GameObject.Find("Waypoints").GetComponent<WaypointManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
         agent = gameObject.GetComponent<NavMeshAgent>();
+
+        player = GameObject.Find("Player");
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(startCount == 0)
-        {
-            waypoints = waypointManager.waypoints;
-            route = makeRoute();
-            startCount++;
-
-        }
-            goToWaypoint();
+       
     }
 
-    private void goToWaypoint()
+    private void goToWaypointWalk()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending && routePosition < route.Count)
+        if (agent.remainingDistance <= agent.stoppingDistance && routePosition < route.Count)
         {
             agent.SetDestination(waypointManager.waypoints[route[routePosition]].position);
             routePosition++;
@@ -46,6 +49,15 @@ public class NpcMove : MonoBehaviour
         if(routePosition == route.Count)
         {
             move = false;
+            startCount = 0;
+        }
+        if (move)
+        {
+            animator.SetFloat("Speed", 0.0f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0.34f);
         }
 
     }
@@ -68,5 +80,42 @@ public class NpcMove : MonoBehaviour
             
 
         return positions;
+    }
+
+    public void patrolMovement()
+    {
+        if (startCount == 0)
+        {
+            waypoints = waypointManager.waypoints;
+            route = makeRoute();
+            agent.speed = walkSpeed;
+            startCount++;
+
+        }
+        goToWaypointWalk();
+    }
+
+    public bool CheckPlayerInView()
+    {
+        float distance = Vector3.Distance(this.transform.position, player.transform.position);
+        if(distance < visisionDistance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void PursuePlayer()
+    {
+        if(persueCount == 0)
+        {
+            animator.SetFloat("Speed", 0.7f);
+            agent.speed = runSpeed;
+            persueCount++;
+        }
+        Debug.Log("AQYUIO");
     }
 }
