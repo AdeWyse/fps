@@ -1,25 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-public class Atack : MonoBehaviour
+
+public class Atack: State
 {
-    private Animator animator;
-    private NavMeshAgent agent;
-    private GameObject player;
-    // Start is called before the first frame update
-    void Start()
+    public Atack(NpcMove move) : base(move)
     {
-        animator = gameObject.GetComponentInChildren<Animator>();
-        agent = gameObject.GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player");
+        name = STATE.PURSUE;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+        move.InvokeRepeating("AttackPlayer", 0f, 0.5f);
+        base.Enter();
     }
 
+    public override void Update()
+    {
+        base.Update();
+       if (!move.CheckPlayerInAttackDistance())
+        {
+            nextState = new Pursue(move);
+            stage = EVENT.EXIT;
+        }
+        if (!move.CheckPlayerInView())
+        {
+            nextState = new Patrol(move);
+            stage = EVENT.EXIT;
+        }
+        if (!move.CheckAlive())
+        {
+            nextState = new Die(move);
+            stage = EVENT.EXIT;
+        }
+    }
 
+    public override void Exit()
+    {
+        move.ResetAnimations();
+        move.attackCount = 0;
+        move.CancelInvoke();
+        base.Exit();
+    }
 }

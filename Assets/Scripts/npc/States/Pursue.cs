@@ -18,10 +18,21 @@ public class Pursue : State
     public override void Update()
     {
         base.Update();
-
-        if (move.CheckPlayerInView())
+        ;        if (!move.CheckPlayerInView() || move.CheckPlayerInAttackDistance())
         {
-            nextState = new Pursue(move);
+            if (!move.CheckPlayerInView())
+            {
+                nextState = new Patrol(move);
+
+            }
+            if (move.CheckPlayerInAttackDistance())
+            {
+                nextState = new Atack(move);
+            }
+            if (!move.CheckAlive())
+            {
+                nextState = new Die(move);
+            }
             stage = EVENT.EXIT;
         }
 
@@ -29,6 +40,8 @@ public class Pursue : State
 
     public override void Exit()
     {
+        move.ResetAnimations();
+        move.pursueCount = 0;
         move.CancelInvoke();
         base.Exit();
     }

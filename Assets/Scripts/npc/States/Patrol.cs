@@ -24,10 +24,16 @@ public class Patrol : State
             nextState = new Pursue(move);
             stage = EVENT.EXIT;
         }
+        if (!move.CheckAlive())
+        {
+            nextState = new Die(move);
+            stage = EVENT.EXIT;
+        }
 
     }
 
     public override void Exit() {
+        move.startCount = 0;
         move.CancelInvoke();
         base.Exit();
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    GameManager gameManager;
     public int healthPoints = 100;
     private int baseHealth = 100;
     public bool alive = true;
@@ -26,11 +27,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
-        if(healthPoints <= 0)
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (healthPoints <= 0)
         {
             alive = false;
+            gameManager.running = 2;
         }
-        //call end game
+
     }
 
     public void Update()
