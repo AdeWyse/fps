@@ -29,9 +29,12 @@ public class NpcMove : MonoBehaviour
     float walkSpeed = 1.5f;
     float runSpeed = 3f;
 
-    public int life = 50; 
+    public int life = 50;
+
+    private GameManager gameManager;
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         waypointManager = GameObject.Find("Waypoints").GetComponent<WaypointManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -189,6 +192,7 @@ public class NpcMove : MonoBehaviour
     {
         animatorActions.Damage();
         life = life - damage;
+        
     }
 
     public  bool CheckAlive()
@@ -203,5 +207,6 @@ public class NpcMove : MonoBehaviour
     public void Die()
     {
         animatorActions.Death();
+        gameManager.npcCount--;
     }
 }
