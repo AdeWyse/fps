@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Atack: State
 {
+    GameManager gameManager;
     public Atack(NpcMove move) : base(move)
     {
         name = STATE.PURSUE;
@@ -11,6 +12,7 @@ public class Atack: State
 
     public override void Enter()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         move.InvokeRepeating("AttackPlayer", 0f, 0.5f);
         base.Enter();
     }
@@ -18,6 +20,7 @@ public class Atack: State
     public override void Update()
     {
         base.Update();
+       
        if (!move.CheckPlayerInAttackDistance())
         {
             nextState = new Pursue(move);
@@ -31,6 +34,11 @@ public class Atack: State
         if (!move.CheckAlive())
         {
             nextState = new Die(move);
+            stage = EVENT.EXIT;
+        }
+        if (gameManager.playerHealth <= 0)
+        {
+            nextState = new EndGame(move);
             stage = EVENT.EXIT;
         }
     }

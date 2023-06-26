@@ -7,7 +7,7 @@ public class State
 {
    public enum STATE
     {
-        IDLE, PATROL, PURSUE, ATTACK
+        IDLE, PATROL, PURSUE, ATTACK, END
     };
 
     public enum EVENT

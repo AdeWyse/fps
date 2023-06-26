@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     private GameObject[] npcList;
     public int npcCount;
     public int npcCountInitial;
-    
+    public int playerHealth;
+    public int baseHealth = 100;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
         npcList = GameObject.FindGameObjectsWithTag("Npc");
         npcCountInitial = npcList.Length;
         npcCount = npcCountInitial;
+        playerHealth = baseHealth;
     }
 
     // Update is called once per frame
@@ -25,6 +28,11 @@ public class GameManager : MonoBehaviour
         if(npcCount < 0)
         {
             npcCount = 0;
+        }
+
+        if(playerHealth < 0)
+        {
+            playerHealth = 0;
         }
     }
 }

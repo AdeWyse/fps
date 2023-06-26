@@ -6,11 +6,19 @@ public class PlayerHealth : MonoBehaviour
 {
     GameManager gameManager;
     public int healthPoints = 100;
-    private int baseHealth = 100;
+    private int baseHealth;
     public bool alive = true;
+
+    public void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        baseHealth = gameManager.baseHealth;
+        healthPoints = baseHealth;
+    }
     public void TakeDamage(int damage)
     {
         healthPoints = healthPoints - damage;
+        gameManager.playerHealth = healthPoints;
     }
 
     public void HealDamage(int heal)
@@ -23,11 +31,12 @@ public class PlayerHealth : MonoBehaviour
         {
             healthPoints = temp;
         }
+        gameManager.playerHealth = healthPoints;
     }
 
     public void Die()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+       
         if (healthPoints <= 0)
         {
             alive = false;

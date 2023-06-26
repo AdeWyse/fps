@@ -2,29 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Die : State
+public class EndGame : State
 {
-    public Die(NpcMove move) : base(move)
+    public EndGame(NpcMove move) : base(move)
     {
-        name = STATE.PATROL;
+        name = STATE.END;
     }
 
     public override void Enter()
     {
-        move.Die();
+        move.CancelInvoke();
+        move.ResetAnimations();
         base.Enter();
     }
 
     public override void Update()
     {
         base.Update();
-        move.CancelInvoke();
 
     }
 
     public override void Exit()
     {
-        move.CancelInvoke();
+        
         base.Exit();
     }
 }
