@@ -176,11 +176,8 @@ public class NpcMove : MonoBehaviour
             agent.isStopped = true;
         }
         animatorActions.Attack();
-        float probabilityOfAim = Random.RandomRange(0, 100);
-        if(probabilityOfAim <= 50)
-        {
-            playerHealth.TakeDamage(5);
-        }
+        Gun gun = gameObject.GetComponentInChildren<Gun>();
+        gun.shootRayNpc();
     }
 
     public void ResetAnimations()

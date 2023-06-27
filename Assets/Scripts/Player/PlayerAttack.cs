@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     private InputManager inputManager;
     private Animator animator;
     private NpcMove npcShot;
+    [SerializeField]
+    private Gun equippedGun;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,25 +34,7 @@ public class PlayerAttack : MonoBehaviour
         if (inputManager.onFoot.Shoot.triggered)
         {
             animator.SetTrigger("Shot");
-            Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo, distance, mask))
-            {
-                if (hitInfo.collider.gameObject.tag == "Npc" || hitInfo.collider.gameObject.tag == "NpcHead")
-                {
-                    int points = 10;
-                    if(hitInfo.collider.gameObject.tag == "Npc")
-                    {
-                        npcShot = hitInfo.collider.GetComponent<NpcMove>();
-                    }
-                    if (hitInfo.collider.gameObject.tag == "NpcHead")
-                    {
-                        npcShot = hitInfo.collider.GetComponentInParent<NpcMove>();
-                        points = 51;
-                    }
-                        npcShot.TakeDamage(points);
-                }
-            }
+            equippedGun.shootRayPlayer();
         }
 
     }
