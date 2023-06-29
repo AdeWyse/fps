@@ -11,7 +11,7 @@ public class PlayerMotor : MonoBehaviour
     private float originalSpeed;
     private float sprintSpeed;
 
-    private float jumpForce = 2000f;
+    private float jumpForce = 5000f;
     private bool isOnGround = true;
 
     private bool isCrouching = false;
@@ -29,7 +29,7 @@ public class PlayerMotor : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
 
         originalSpeed = speed;
-        sprintSpeed = 4 * speed;
+        sprintSpeed = 2.5f * speed;
 
         originalScale = transform.localScale.y; originalScale = transform.localScale.y;
     }

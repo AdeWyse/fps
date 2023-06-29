@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_templateMaterial: {fileID: 2100000, guid: ae1cf0157788eb749bb5cfffa25b7aa3, type: 2}
   m_doNotOverwriteTemplateMaterialProperties: 0
-  m_lineColor: {r: 0.76862746, g: 0, b: 1, a: 1}
+  m_lineColor: {r: 0, g: 0.85198927, b: 1, a: 1}
   m_lineWidth: 20
   m_lightSaberFactor: 0.8
   m_lineVertices:

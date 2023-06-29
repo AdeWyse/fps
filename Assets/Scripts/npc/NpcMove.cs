@@ -24,7 +24,7 @@ public class NpcMove : MonoBehaviour
     private PlayerHealth playerHealth;
 
     float visisionDistance = 6.0f;
-    float visionAngle = 60.0f;
+    float visionAngle = 90.0f;
     float shootDistance = 3.0f;
     float walkSpeed = 1.5f;
     float runSpeed = 3f;
