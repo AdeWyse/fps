@@ -9,6 +9,7 @@ TagManager:
   - Npc
   - NpcHead
   - Dead
+  - hit
   layers:
   - Default
   - TransparentFX

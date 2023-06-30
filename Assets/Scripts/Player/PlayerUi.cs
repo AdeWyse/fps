@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerUi : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerUi : MonoBehaviour
     [SerializeField]
     private GameObject winPanel;
     private GameManager gameManager;
+    private int count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +41,18 @@ public class PlayerUi : MonoBehaviour
         if(gameManager.playerHealth <= 0)
         {
             gameOverPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
-        if (gameManager.npcCount <= 0)
+        if (gameManager.npcCount <= 0 && count == 0)
         {
-            winPanel.SetActive(true);
-        }
+            StartCoroutine("TurnBlack");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            count++;
+            
+        }  
     }
 
     public void UpdateText(string promptMessage)
@@ -76,5 +84,22 @@ public class PlayerUi : MonoBehaviour
             healthFill.color = Color.red;
             healthText.color = Color.red;
         }
+    }
+    public IEnumerator TurnBlack()
+    {
+        yield return new WaitForSeconds(2.5f);
+        winPanel.SetActive(true);
+        StopAllCoroutines();
+        yield break;
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

@@ -23,17 +23,20 @@ public class NpcMove : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth;
 
-    float visisionDistance = 6.0f;
+    float visisionDistanceOriginal = 8.0f;
+    float visisionDistance;
     float visionAngle = 90.0f;
     float shootDistance = 3.0f;
     float walkSpeed = 1.5f;
     float runSpeed = 3f;
 
     public int life = 50;
+    public bool searching = false;
 
     private GameManager gameManager;
     void Start()
     {
+        visisionDistance = visisionDistanceOriginal;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         waypointManager = GameObject.Find("Waypoints").GetComponent<WaypointManager>();
         animator = gameObject.GetComponentInChildren<Animator>();
@@ -204,6 +207,23 @@ public class NpcMove : MonoBehaviour
     public void Die()
     {
         animatorActions.Death();
+        agent.isStopped = true;
         gameManager.npcCount--;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "hit")
+        {
+            visisionDistance =  3 * visisionDistanceOriginal;
+            gameObject.transform.LookAt(player.transform);
+            Invoke("ResetVision", 5.0f);
+
+        }
+    }
+
+    private void ResetVision()
+    {
+        visisionDistance = visisionDistanceOriginal;
     }
 }
