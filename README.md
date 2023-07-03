@@ -1,5 +1,5 @@
 # Future Assault
-This project is a first-person shooter (FPS) prototype with sci-fi themes, showcasing features such as NPCs AI using Finite State Machine, ray tracing for interactables, and  gun aiming. It has been developed using  Unity3D with assets from Unity Store and OpenGameArt with the apropriated liceses.
+This project is a first-person shooter (FPS) prototype with sci-fi themes, showcasing features such as NPCs AI using Finite State Machine, ray tracing for interactables, and  gun aiming. It has been developed using  Unity3D with assets from Unity Store and OpenGameArt.
 
 ## Features
 - First-Person Shooter Gameplay
