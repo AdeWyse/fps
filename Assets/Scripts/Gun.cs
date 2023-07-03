@@ -8,10 +8,11 @@ public class Gun : MonoBehaviour
     float range = 1000.0f;
 
     public GameObject shotPrefab;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class Gun : MonoBehaviour
     {
         
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+ 
         if(Physics.Raycast(ray, out hit, range))
         {
             GameObject laser =  GameObject.Instantiate(shotPrefab, transform.position, transform.rotation);
@@ -35,12 +37,16 @@ public class Gun : MonoBehaviour
     public void shootRayNpc()
     {
         GameObject player = GameObject.Find("Player");
-        Ray ray = new Ray(player.transform.position, gameObject.transform.forward);
-        if (Physics.Raycast(ray, out hit, range))
+        if (gameManager.playerHealth > 0)
         {
-            GameObject laser = GameObject.Instantiate(shotPrefab, transform.position, transform.rotation);
-            laser.GetComponent<ShotBehavior>().setTarget(hit.point);
-            GameObject.Destroy(laser, 2f);
+            Ray ray = new Ray(player.transform.position, gameObject.transform.forward);
+            if (Physics.Raycast(ray, out hit, range))
+            {
+                GameObject laser = GameObject.Instantiate(shotPrefab, transform.position, transform.rotation);
+                laser.GetComponent<ShotBehavior>().setTarget(hit.point);
+                GameObject.Destroy(laser, 2f);
+            }
         }
+       
     }
 }

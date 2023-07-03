@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterPlants : Interactable
 {
     public ParticleSystem[] showers;
+    public AudioSource[] sounds;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +13,7 @@ public class WaterPlants : Interactable
         if(shower != null )
         {
             showers = shower.GetComponentsInChildren<ParticleSystem>();
+            sounds = shower.GetComponentsInChildren<AudioSource>();
         }
 
     }
@@ -28,6 +30,12 @@ public class WaterPlants : Interactable
         foreach(ParticleSystem shower in showers)
         {
             shower.Play();
+
+        }
+        foreach (AudioSource sound in sounds)
+        {
+            sound.Play();
+
         }
     }
 }

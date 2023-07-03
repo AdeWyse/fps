@@ -23,10 +23,10 @@ public class NpcMove : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth;
 
-    float visisionDistanceOriginal = 8.0f;
+    float visisionDistanceOriginal = 10.0f;
     float visisionDistance;
     float visionAngle = 90.0f;
-    float shootDistance = 3.0f;
+    float shootDistance = 4.0f;
     float walkSpeed = 1.5f;
     float runSpeed = 3f;
 
@@ -178,6 +178,7 @@ public class NpcMove : MonoBehaviour
             attackCount++;
             agent.isStopped = true;
         }
+        gameObject.transform.LookAt(player.transform);
         animatorActions.Attack();
         Gun gun = gameObject.GetComponentInChildren<Gun>();
         gun.shootRayNpc();
@@ -207,6 +208,12 @@ public class NpcMove : MonoBehaviour
     public void Die()
     {
         animatorActions.Death();
+        gameObject.GetComponent<Collider>().enabled = false;
+        Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
         agent.isStopped = true;
         gameManager.npcCount--;
     }

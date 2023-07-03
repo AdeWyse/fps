@@ -8,17 +8,26 @@ public class PlayerHealth : MonoBehaviour
     public int healthPoints = 100;
     private int baseHealth;
     public bool alive = true;
-
+    private GameObject damagePanel;
     public void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        damagePanel = GameObject.Find("Damage");
+        damagePanel.SetActive(false);
         baseHealth = gameManager.baseHealth;
         healthPoints = baseHealth;
     }
     public void TakeDamage(int damage)
     {
+        damagePanel.SetActive(true);
         healthPoints = healthPoints - damage;
         gameManager.playerHealth = healthPoints;
+        Invoke("HideDamage", 1.5f);
+    }
+
+    private void HideDamage()
+    {
+        damagePanel.SetActive(false);
     }
 
     public void HealDamage(int heal)
@@ -32,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
             healthPoints = temp;
         }
         gameManager.playerHealth = healthPoints;
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     public void Die()

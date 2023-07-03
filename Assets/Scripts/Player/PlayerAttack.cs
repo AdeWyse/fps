@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class PlayerAttack : MonoBehaviour
 {
     private Camera cam;
-    private float distance = 10f;
     private LayerMask mask;
     private InputManager inputManager;
     private Animator animator;
