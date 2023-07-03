@@ -14,8 +14,8 @@ This project is a first-person shooter (FPS) prototype with sci-fi themes, showc
 - Have fun!
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/AdeWyse/fps/main/ImagesVideos/2.png" alt="First Image" width="400" />
-    <img src="https://raw.githubusercontent.com/AdeWyse/fps/main/ImagesVideos/1.png" alt="Second Image" width="400" /> 
+    <img src="https://raw.githubusercontent.com/AdeWyse/fps/main/ImagesVideos/2.png" alt="First Image" width="250" />
+    <img src="https://raw.githubusercontent.com/AdeWyse/fps/main/ImagesVideos/1.png" alt="Second Image" width="250" /> 
   </p>
 
 Any questions you can contact me by email: adelinewyse@gmail.com
